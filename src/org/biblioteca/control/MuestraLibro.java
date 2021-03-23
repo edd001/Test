@@ -18,7 +18,6 @@ public class MuestraLibro implements Libro{
 
     @Override
     public String getInformacion() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         StringBuilder sb = new StringBuilder();
         sb.append(this.titulo).append(" (");
         sb.append(this.descripcion).append(") - ");
