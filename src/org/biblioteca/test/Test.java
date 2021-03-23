@@ -7,25 +7,34 @@ import org.biblioteca.control.MuestraLibro;
 import org.biblioteca.interfaces.Libro;
 
 public class Test {
-    private static int CLAVE = 0;
-    private static int TITULO = 1;
-    private static int DESCRIPCION = 2;
+    private static String ID = "0";
+    private static String TITULO = "1";
+    private static String DESCRIPCION = "2";
     
     public static void main(String[] args){
         
-        String[] cvebusca = {Integer.toString(CLAVE), Integer.toString(TITULO), Integer.toString(DESCRIPCION)}; 
+        String[][] cvebusca = {{ID,"152"},
+            {TITULO,"Confabulario"},
+            {DESCRIPCION,"Novela"},
+            {ID,"100"}}; 
         MuestraBuscar mb = new MuestraBuscar();
-        List<Libro> libros = null;
+        List<Libro> libros;
         
-        try {
-            libros = mb.buscar("0","Llanoes");
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        if (libros != null && !libros.isEmpty()) { 
-            for (Libro temp : libros) {
-                System.out.println( ((MuestraLibro)temp).getInformacion() );
+        for (int i = 0; i < 4; i++){
+            libros = null;
+            
+            try {
+                libros = mb.buscar(cvebusca[i][0],cvebusca[i][1]);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
+            if (libros != null && !libros.isEmpty()) { 
+                for (Libro temp : libros) {
+                    System.out.println( ((MuestraLibro)temp).getInformacion() );
+                }
+            }
+            System.out.println("--------------------------------------------------");
         }
+        
     }
 }

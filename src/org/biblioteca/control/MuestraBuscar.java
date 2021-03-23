@@ -9,11 +9,11 @@ public class MuestraBuscar implements Buscar{
     private List<Object> libros;
     
     public MuestraBuscar() {
-        this.libros = new ArrayList<Object>();
         creaLista();
     }
 
     private void creaLista(){
+        this.libros = new ArrayList<Object>();
         this.libros.add(new MuestraLibro(152,"El Llano en llamas","Compilacion de cuentos escritos por Juan Rulfo",150));
         this.libros.add(new MuestraLibro(153,"Pedro Páramo","Primera novela del escritor mexicano Juan Rulfo",55));
         this.libros.add(new MuestraLibro(154,"Como agua para chocolate","Novela romántica escrita por Laura Esquivel",60));
@@ -27,11 +27,14 @@ public class MuestraBuscar implements Buscar{
     public List<Libro> buscar(String... palabrasClaves) throws Exception {
         List<Libro> resultados = new ArrayList<Libro>();
         
-        for (Object ml : libros){
-            if ( palabrasClaves[0].equals( ((MuestraLibro)ml).getTitulo() ) ){
-                resultados.add((Libro)ml);
-            }
+        if (palabrasClaves[0].equals("0")){
+            this.porId(resultados, Integer.parseInt(palabrasClaves[1]));
+        }else if (palabrasClaves[0].equals("1")){
+            this.porTitulo(resultados, palabrasClaves[1]);
+        } else if (palabrasClaves[0].equals("2")){
+            this.porDesc(resultados, palabrasClaves[1]);
         }
+        
         
         if (resultados != null && !resultados.isEmpty()) { 
             return resultados;
@@ -39,5 +42,39 @@ public class MuestraBuscar implements Buscar{
         
         throw new Exception("Excepcion: Libro no encontrado.");
     }
+    
+    private void porId( List<Libro> rs, int clave ){
+        //rs = new ArrayList<Libro>();
+       for (Object ml : this.libros){
+            if ( clave == ((MuestraLibro)ml).getId() ){
+                rs.add((Libro)ml);
+            }
+        }
+       //return rs;
+    }
+    
+    private void porTitulo( List<Libro> rs, String titulo ){
+        //rs = new ArrayList<Libro>();
+        for (Object ml : this.libros){
+            if ( titulo.equals( ((MuestraLibro)ml).getTitulo() ) ){
+                rs.add((Libro)ml);
+            }
+        }
+       //return rs;
+    }
+    
+    private void porDesc( List<Libro> rs, String desc ){
+        //rs = new ArrayList<Libro>();
+        String minusculas;
+        
+        for (Object ml : this.libros){
+            minusculas = ((MuestraLibro)ml).getDescripcion().toLowerCase();
+            if ( minusculas.contains(desc.toLowerCase())){
+                rs.add((Libro)ml);
+            }
+        }
+       //return rs;
+    }
+    
     
 }
