@@ -1,15 +1,14 @@
 package org.biblioteca.test;
 
-import java.util.Arrays;
 import java.util.List;
 import org.biblioteca.control.MuestraBuscar;
 import org.biblioteca.control.MuestraLibro;
 import org.biblioteca.interfaces.Libro;
 
 public class Test {
-    private static String ID = "0";
-    private static String TITULO = "1";
-    private static String DESCRIPCION = "2";
+    private static final String ID = "0";
+    private static final String TITULO = "1";
+    private static final String DESCRIPCION = "2";
     
     public static void main(String[] args){
         
@@ -35,6 +34,6 @@ public class Test {
             }
             System.out.println("--------------------------------------------------");
         }
-        
     }
+    
 }

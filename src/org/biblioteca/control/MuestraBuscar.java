@@ -13,7 +13,7 @@ public class MuestraBuscar implements Buscar{
     }
 
     private void creaLista(){
-        this.libros = new ArrayList<Object>();
+        this.libros = new ArrayList<>();
         this.libros.add(new MuestraLibro(152,"El Llano en llamas","Compilacion de cuentos escritos por Juan Rulfo",150));
         this.libros.add(new MuestraLibro(153,"Pedro Páramo","Primera novela del escritor mexicano Juan Rulfo",55));
         this.libros.add(new MuestraLibro(154,"Como agua para chocolate","Novela romántica escrita por Laura Esquivel",60));
@@ -25,18 +25,24 @@ public class MuestraBuscar implements Buscar{
     
     @Override
     public List<Libro> buscar(String... palabrasClaves) throws Exception {
-        List<Libro> resultados = new ArrayList<Libro>();
+        List<Libro> resultados = new ArrayList<>();
         
-        if (palabrasClaves[0].equals("0")){
-            this.porId(resultados, Integer.parseInt(palabrasClaves[1]));
-        }else if (palabrasClaves[0].equals("1")){
-            this.porTitulo(resultados, palabrasClaves[1]);
-        } else if (palabrasClaves[0].equals("2")){
-            this.porDesc(resultados, palabrasClaves[1]);
+        switch (palabrasClaves[0]) {
+            case "0":
+                this.porId(resultados, Integer.parseInt(palabrasClaves[1]));
+                break;
+            case "1":
+                this.porTitulo(resultados, palabrasClaves[1]);
+                break;
+            case "2":
+                this.porDesc(resultados, palabrasClaves[1]);
+                break;
+            default:
+                break;
         }
         
         
-        if (resultados != null && !resultados.isEmpty()) { 
+        if (!resultados.isEmpty()) { 
             return resultados;
         }
         
@@ -44,27 +50,27 @@ public class MuestraBuscar implements Buscar{
     }
     
     private void porId( List<Libro> rs, int clave ){
-        //rs = new ArrayList<Libro>();
+        
        for (Object ml : this.libros){
             if ( clave == ((MuestraLibro)ml).getId() ){
                 rs.add((Libro)ml);
             }
         }
-       //return rs;
+       
     }
     
     private void porTitulo( List<Libro> rs, String titulo ){
-        //rs = new ArrayList<Libro>();
+        
         for (Object ml : this.libros){
             if ( titulo.equals( ((MuestraLibro)ml).getTitulo() ) ){
                 rs.add((Libro)ml);
             }
         }
-       //return rs;
+        
     }
     
     private void porDesc( List<Libro> rs, String desc ){
-        //rs = new ArrayList<Libro>();
+        
         String minusculas;
         
         for (Object ml : this.libros){
@@ -73,7 +79,7 @@ public class MuestraBuscar implements Buscar{
                 rs.add((Libro)ml);
             }
         }
-       //return rs;
+        
     }
     
     
